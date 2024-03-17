@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Quads</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='quad.css') }}">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,700;1,300&display=swap" rel="stylesheet">
+    </head>
+
+    <body>
+        <div class="container">
+            <div class="heading-container">
+                <p class="heading">Quadratic Equation Solver</p>
+            </div>
+            <div class="main-body">
+                <p>Enter Equation Here</p>
+                <form action="/quad_solve" method="post">
+                    <div class="row-first">
+                        <input class="input" type="text" name="equation" placeholder="Enter Equation Here">
+                        <button type="submit">Done</button>
+                    </div>
+                </form>
+                <p>Answer</p>
+                <div class="answer-container">
+                    <input id="test-output" class="answer" type="text" placeholder="Answer" readonly>
+                    <button class="copy" onclick="copyfunction()">
+                        <img src="{{ url_for('static', filename='copy-regular.svg') }}">
+                    </button>
+                </div>
+                <p class="warning">The Module currently only supports x or X as the variable name. Also keep in mind, this is based on the quadratic formula, and thus can only return real roots. You can declare squares by one of two ways as x2 or x^2. </p>
+            </div>
+        </div>
+
+        <script>
+            const form = document.querySelector('form');
+            const output = document.getElementById('test-output');
+
+            const handleFormSubmit = async (event) => {
+                event.preventDefault();
+                const formData = new FormData(form);
+                const response = await fetch('/quad_solve', {
+                    method: 'POST',
+                    body: formData
+                });
+                const roots = await response.text();
+                output.value = roots;
+            }
+
+            form.addEventListener('submit', handleFormSubmit);
+        </script>
+
+        <script type="text/javascript" src="js/shortcut.js"></script>
+
+        <script>
+            shortcut.add("return", handleFormSubmit);
+        </script>
+
+        <script>
+            function copyfunction(){
+                var copy = document.getElementById("test-output");
+                copy.select();
+                navigator.clipboard.writeText(copy.value);
+                alert("Text Copied")
+            }
+        </script>
+    </body>
+</html>
