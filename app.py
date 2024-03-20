@@ -1,5 +1,5 @@
 from flask import Flask, request, render_template
-from v2 import quad
+from Backend_Scripts.quadratic_equation import quad
 
 app = Flask(__name__)
 
