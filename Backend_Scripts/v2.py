@@ -82,3 +82,6 @@ def quad(eq): #solves
         sol2 = (-coeff["b"] - math.sqrt(delta)) / (2*coeff["a"])
         print(f"The two real roots are {sol1} and {sol2}")
         return [sol1,sol2]
+
+
+quad("-7x2 + 3x + 4 = 0")
