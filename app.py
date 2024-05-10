@@ -1,5 +1,5 @@
 from flask import Flask, request, render_template
-from Backend_Scripts.quadratic_equation import quad
+from Backend_Scripts.quadratic_equation import calculate
 
 app = Flask(__name__)
 
@@ -30,7 +30,7 @@ def solve():
     try:
         equation = request.form['equation']
         # Call your quadratic equation solver function here
-        roots = quad(equation)
+        roots = calculate(equation)
         return str(roots)
     except:
         return "Error: Unparsable Equation!"
